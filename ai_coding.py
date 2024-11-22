@@ -68,7 +68,6 @@ if output_file == toml_file:
     output_file = toml_file + f".{ext}"
 with open(output_file, "w") as f:
     f.write(response.choices[0].message.content)
-    print(response.choices[0].message.content)
     print(f"Output written to {output_file}")
 
 # show token usage statistics and estimate cost
