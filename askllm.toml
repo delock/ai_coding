@@ -1,4 +1,5 @@
 [file]
+name="askllm"
 language="bash"
 extension="sh"
 description="A CLI program that allows you to ask questions to deepseek"

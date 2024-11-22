@@ -1,4 +1,5 @@
 [file]
+name="helloworld"
 language="python"
 description="A hello world program"
 [project]

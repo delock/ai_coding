@@ -57,7 +57,7 @@ messages = [
 response = client.chat.completions.create(
     model=os.environ["OPENAI_API_MODEL"],
     messages=messages,
-    stop=["```"],
+    stop=[f"```\n"],
 )
 # write the response to the console
 # and also output to file with same name as the input file but with proper extension according to lanaguage

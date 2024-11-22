@@ -1,4 +1,5 @@
 [file]
+name="qsort"
 language="python"
 description="Quick sort program"
 [project]
