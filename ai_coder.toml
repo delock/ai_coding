@@ -1,4 +1,5 @@
 [file]
+name="ai_coder"
 language="python"
 description="An AI coding program"
 [project]
