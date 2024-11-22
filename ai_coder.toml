@@ -1,0 +1,47 @@
+[file]
+language="python"
+description="An AI coding program"
+[project]
+requirements="""Write a program called AI coder, that taks a toml file as requirement to a program, then generate source code for the program
+The toml file has two sections:
+1. file section: contains the following fields:
+    * name: the name of the program
+    * language: the programming language of the source code
+    * description: a brief description of the program
+    * extension(optional): the file extension of the source code
+        - if extension field is missing, common language<-->extension mapping such as python<-->py should be used, create a table cover at least python, bash, javascript.
+2. project section: contains the following fields:
+    * requirements: a detailed description of the program
+
+AI coder takes the toml file from command line argument, then generate the source code for the program based on the toml file.  The format of toml file is described as above.
+
+In order to generate code, AI coder should utilize DeepSeek 'chat prefix completion' feature, the description of this feature is as follow:
+
+    The chat prefix completion follows the Chat Completion API, where users provide an assistant's prefix message for the model to complete the rest of the message.
+
+    Notice
+    When using chat prefix completion, users must ensure that the role of the last message in the messages list is assistant and set the prefix parameter of the last message to True.
+    The user needs to set base_url="https://api.deepseek.com/beta" to enable the Beta feature.
+    Sample Code
+    Below is a complete Python code example for chat prefix completion. In this example, we set the prefix message of the assistant to "```python\n" to force the model to output Python code, and set the stop parameter to ['```'] to prevent additional explanations from the model.
+
+    from openai import OpenAI
+
+    client = OpenAI(
+        api_key="<your api key>",
+        base_url="https://api.deepseek.com/beta",
+    )
+
+    messages = [
+        {"role": "user", "content": "Please write quick sort code"},
+        {"role": "assistant", "content": "```python\n", "prefix": True}
+    ]
+    response = client.chat.completions.create(
+        model="deepseek-chat",
+        messages=messages,
+        stop=["```\n"],
+    )
+    print(response.choices[0].message.content)
+
+api_token is taken from OPENAI_API_KEY environment variable, deepseek base_url is taken from OPENAI_API_URL   env. model name is taken from OPENAI_API_MODEL env.
+"""
