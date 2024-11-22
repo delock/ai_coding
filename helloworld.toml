@@ -1,4 +1,5 @@
 [file]
 language="python"
+description="A hello world program"
 [project]
 requirements="Write a program that prints 'Hello, World!' to the console."

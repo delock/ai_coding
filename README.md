@@ -8,3 +8,8 @@
   * `OPENAI_API_MODEL`, I use deepseek-chat
 4. Run ```python ai_coding.py <requirement.toml>```
 5. Result will be written to a file ready to execute.
+
+## Sample requirements:
+* `helloworld.toml`: a simple hello world program in Python
+* `qsort.toml`: a quick sort program that sorts your inputs from command line in Python
+* `askllm.toml`: a program that asks a question and gets an answer from DeepSpeed in bash script

@@ -1,6 +1,7 @@
 [file]
 language="bash"
 extension="sh"
+description="A CLI program that allows you to ask questions to deepseek"
 [project]
 requirements="""Write a program that takes a question from command line and send to deepseek with openai api and show answer on command line.  The question is the whole command line, so arg1, arg2, ... would all be part of the question.
 
