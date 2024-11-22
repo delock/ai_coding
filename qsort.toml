@@ -3,4 +3,5 @@ name="qsort"
 language="python"
 description="Quick sort program"
 [project]
-requirements="Please write quick sort code, try to avoid worst case by pick pivort from medium of first, last and middle element.  Input numbers should read from command line, each different args is a different number"
+requirements="""Please write quick sort code, try to avoid worst case by pick pivort from medium of first, last and middle element.
+Input numbers should read from command line, each different arg is a different number"""
