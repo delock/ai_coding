@@ -13,3 +13,4 @@
 * `helloworld.toml`: a simple hello world program in Python
 * `qsort.toml`: a quick sort program that sorts your inputs from command line in Python
 * `askllm.toml`: a program that asks a question and gets an answer from DeepSpeed in bash script
+* `ai_coder.toml`: a program that takes requirement file and generates code in Python, so this project can generate itself
