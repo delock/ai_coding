@@ -6,31 +6,9 @@ import json
 
 api_key = os.environ["OPENAI_API_KEY"]
 api_url = os.environ["OPENAI_API_URL"]
-api_user = os.environ["OPENAI_API_USER"]
 
-def get_balance():
-    import requests
-    url = f"https://api.deepseek.com/user/balance"
-    payload={}
-    headers = {
-      'Accept': 'application/json',
-      'Authorization': f'Bearer {api_key}'
-    }
-
-    response = requests.request("GET", url, headers=headers, data=payload)
-
-    # interpret response.txt as json
-    response = response.json()
-    for entry in response['balance_infos']:
-        if entry['currency'] == 'CNY':
-            return float(entry['total_balance'])
-            break
-
-
-begin_balance = get_balance()
-
-client = OpenAI(api_key=os.environ["OPENAI_API_KEY"],
-                base_url=os.environ["OPENAI_API_URL"])
+client = OpenAI(api_key=api_key,
+                base_url=api_url)
 
 # read json file from command line, where the "language" field is the programming language,
 # and the "requirement" field is the requirement
@@ -83,10 +61,12 @@ with open(output_file, "w") as f:
     print(response.choices[0].message.content)
     print(f"Output written to {output_file}")
 
-end_balance = get_balance()
+# show token usage statistics and estimate cost
+# prompt tokens cost: 0.1 CNY per million tokens
+# completion tokens cost: 0.2 CNY per million tokens
+completion_tokens = response.usage.completion_tokens
+prompt_tokens = response.usage.prompt_tokens
 
-# calculate the cost of the request
-cost = begin_balance - end_balance
-print(f"Cost of request: {cost} CNY")
-# also show remaining balance
-print(f"Remaining balance: {end_balance} CNY")
+# calculate the cost of the request, and print with 3 effective digits
+cost = (0.1 * prompt_tokens + 0.2 * completion_tokens) / 1000000
+print(f"Cost: {cost:.5f} CNY")
