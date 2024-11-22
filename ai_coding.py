@@ -4,6 +4,31 @@ import sys
 # import json support
 import json
 
+api_key = os.environ["OPENAI_API_KEY"]
+api_url = os.environ["OPENAI_API_URL"]
+api_user = os.environ["OPENAI_API_USER"]
+
+def get_balance():
+    import requests
+    url = f"https://api.deepseek.com/user/balance"
+    payload={}
+    headers = {
+      'Accept': 'application/json',
+      'Authorization': f'Bearer {api_key}'
+    }
+
+    response = requests.request("GET", url, headers=headers, data=payload)
+
+    # interpret response.txt as json
+    response = response.json()
+    for entry in response['balance_infos']:
+        if entry['currency'] == 'CNY':
+            return float(entry['total_balance'])
+            break
+
+
+begin_balance = get_balance()
+
 client = OpenAI(api_key=os.environ["OPENAI_API_KEY"],
                 base_url=os.environ["OPENAI_API_URL"])
 
@@ -40,7 +65,7 @@ response = client.chat.completions.create(
 # dict between language and extension name
 file_ext_map = {
     "python": "py",
-    "javascript": "js",
+    "javascript": "html",
     "c": "c",
     "c++": "cpp",
     "java": "java",
@@ -57,3 +82,11 @@ with open(output_file, "w") as f:
     f.write(response.choices[0].message.content)
     print(response.choices[0].message.content)
     print(f"Output written to {output_file}")
+
+end_balance = get_balance()
+
+# calculate the cost of the request
+cost = begin_balance - end_balance
+print(f"Cost of request: {cost} CNY")
+# also show remaining balance
+print(f"Remaining balance: {end_balance} CNY")
