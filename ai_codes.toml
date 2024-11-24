@@ -1,9 +1,9 @@
 [file]
-name="ai_coder"
-language="python"
-description="An AI coding program"
+name='ai_codes'
+language='python'
+description='An AI coding program'
 [project]
-requirements="""Write a program called AI coder, that taks a toml file as requirement to a program, then generate source code for the program
+requirements='''Write a program called AI coder, that taks a toml file as requirement to a program, then generate source code for the program
 The toml file has two sections:
 1. file section: contains the following fields:
     * name: the name of the program
@@ -18,6 +18,14 @@ The toml file has two sections:
 
 AI coder takes the toml file from command line argument, then generate the source code for the program based on the toml file.  The format of toml file is described as above.
 
+When generating the source code, AI coder should follow the instruction in specs.
+
+When using openai api to generate token, check prompt token and decode token used and compute cost using the following formula:
+    cost of CNY = (0.1 * prompt_tokens + 0.2 * completion_tokens) /1000000
+Then print the cost of the code generation.
+'''
+specs=['''
+## spec 1
 In order to generate code, AI coder should utilize DeepSeek 'chat prefix completion' feature, the description of this feature is as follow:
 
     The chat prefix completion follows the Chat Completion API, where users provide an assistant's prefix message for the model to complete the rest of the message.
@@ -45,12 +53,14 @@ In order to generate code, AI coder should utilize DeepSeek 'chat prefix complet
         stop=["`"+"``\n"],
     )
     print(response.choices[0].message.content)
-
-When using the API, note that ai_coder might be used to generate itself, so it might generate stop string and get stopped by itself. So when generating stop strting in the code, use something that won't trigger the API to stop.  For example, use "`"+"``" avoid appearance of "```" in the code.
-
+''',
+'''
+## spec 2
 api_token is taken from OPENAI_API_KEY environment variable, deepseek base_url is taken from OPENAI_API_URL   env. model name is taken from OPENAI_API_MODEL env.
-
-When using openai api to generate token, check prompt token and decode token used and compute cost using the following formula:
-    cost of CNY = (0.1 * prompt_tokens + 0.2 * completion_tokens) /1000000
-Then print the cost of the code generation.
-"""
+'''
+]
+hints=['''
+## hint 1
+For any code you want to generate "```", use the following instead:
+"`"+"``", the purpose is to avoid ``` in the code to stop code generation
+''']
