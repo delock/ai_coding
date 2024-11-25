@@ -1,81 +1,82 @@
-from openai import OpenAI
 import os
-import sys
-# import toml support
 import toml
+from openai import OpenAI
 
-api_key = os.environ["OPENAI_API_KEY"]
-api_url = os.environ["OPENAI_API_URL"]
+# Load environment variables
+api_key = os.getenv("OPENAI_API_KEY")
+base_url = os.getenv("OPENAI_API_URL", "https://api.deepseek.com/beta")
+model_name = os.getenv("OPENAI_API_MODEL", "deepseek-chat")
 
-client = OpenAI(api_key=api_key,
-                base_url=api_url)
-
-# read toml file from command line, where the "language" field is the programming language,
-# and the "requirement" field is the requirement
-
-# a sample of the json file with python language to write hello world could be:
-# [file]
-# language="python"
-# extension="py"
-# [project]
-# requirements="Write a program that prints 'Hello, World!' to the console."
-
-# the toml file should be passed as argument to the script
-
-toml_file = sys.argv[1]
-
-file_ext_map = {
+# Common language to file extension mapping
+LANGUAGE_EXTENSION_MAP = {
     "python": "py",
-    "javascript": "html",
-    "c": "c",
-    "c++": "cpp",
-    "java": "java",
-    "ruby": "rb",
-    "php": "php",
-    "html": "html",
-    "css": "css",
-    "sql": "sql"
+    "bash": "sh",
+    "javascript": "js"
 }
 
-# read the toml file
-with open(toml_file) as f:
-    data = toml.load(f)
-    language = data["file"]["language"]
-    # read extenion from toml file if it is defined
-    ext = data["file"].get("extension", "")
-    # if language is not recognized, then use the language name as extension
-    # dict between language and extension name
-    if ext == "":
-        ext = file_ext_map.get(language, language)
-    requirements = data["project"]["requirements"]
+def generate_code(toml_file):
+    # Load the TOML file
+    with open(toml_file, 'r') as file:
+        config = toml.load(file)
 
-messages = [
-    {"role": "user", "content": requirements},
-    {"role": "assistant", "content": f"```{language}\n", "prefix": True}
-]
+    # Extract file section
+    file_section = config.get('file', {})
+    name = file_section.get('name')
+    language = file_section.get('language')
+    description = file_section.get('description')
+    extension = file_section.get('extension', LANGUAGE_EXTENSION_MAP.get(language, 'txt'))
 
-response = client.chat.completions.create(
-    model=os.environ["OPENAI_API_MODEL"],
-    messages=messages,
-    stop=[f"```\n"],
-)
-# write the response to the console
-# and also output to file with same name as the input file but with proper extension according to lanaguage
-# for example '.py' for 'python', '.c' for 'c', '.js' for 'javascript', etc.
-# to avoid overwriting the input file, first strip the extension if it exists, then append new extension
-output_file = toml_file.replace(".toml", f".{ext}")
-if output_file == toml_file:
-    output_file = toml_file + f".{ext}"
-with open(output_file, "w") as f:
-    f.write(response.choices[0].message.content)
-    print(f"Output written to {output_file}")
+    # Extract project section
+    project_section = config.get('project', {})
+    requirements = project_section.get('requirements')
+    specs = project_section.get('specs', '')
+    hints = project_section.get('hints', '')
 
-# show token usage statistics and estimate cost
-# prompt tokens cost: 0.1 CNY per million tokens
-# completion tokens cost: 0.2 CNY per million tokens
-completion_tokens = response.usage.completion_tokens
-prompt_tokens = response.usage.prompt_tokens
+    # Create the prompt for the AI
+    prompt = f"{description}\nRequirements: {requirements}\nSpecs: {specs}\nHints: {hints}"
 
-# calculate the cost of the request, and print with 3 effective digits
-cost = (0.1 * prompt_tokens + 0.2 * completion_tokens) / 1000000
-print(f"Cost: {cost:.5f} CNY")
+    # Initialize OpenAI client
+    client = OpenAI(
+        api_key=api_key,
+        base_url=base_url,
+    )
+
+    # Prepare messages for chat prefix completion
+    messages = [
+        {"role": "user", "content": prompt},
+        {"role": "assistant", "content": f"```{language}\n", "prefix": True}
+    ]
+
+    # Generate code using chat prefix completion
+    response = client.chat.completions.create(
+        model=model_name,
+        messages=messages,
+        stop=["```"],
+    )
+
+    # Extract the generated code
+    generated_code = response.choices[0].message.content
+
+    # Compute cost
+    prompt_tokens = response.usage.prompt_tokens
+    completion_tokens = response.usage.completion_tokens
+    cost = (0.1 * prompt_tokens + 0.2 * completion_tokens) / 1000000
+
+    # Print cost
+    print(f"Cost of code generation: CNY {cost:.6f}")
+
+    # Save the generated code to a file
+    file_name = f"{name}.{extension}"
+    with open(file_name, 'w') as file:
+        file.write(generated_code)
+
+    print(f"Code saved to {file_name}")
+
+if __name__ == "__main__":
+    import sys
+    if len(sys.argv) != 2:
+        print("Usage: python ai_coder.py <toml_file>")
+        sys.exit(1)
+
+    toml_file = sys.argv[1]
+    generate_code(toml_file)
