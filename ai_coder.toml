@@ -13,8 +13,8 @@ The toml file has two sections:
         - if extension field is missing, common language<-->extension mapping such as python<-->py should be used, create a table cover at least python, bash, javascript.
 2. project section: contains the following fields:
     * requirements: a detailed description of the program
-    * specs(optional): a list of specs for the program to use.   Specs are information that the program should reference to when generating the code
-    * hints(optional): a list of hints for the program, hints are used to guide the AI coder in generating the source code.
+    * specs(optional): Specs for the program to use.   Specs are information that the program should reference to when generating the code
+    * hints(optional): Hints for the program, hints are used to guide the AI coder in generating the source code.
 
 AI coder takes the toml file from command line argument, then generate the source code for the program based on the toml file.  The format of toml file is described as above.
 

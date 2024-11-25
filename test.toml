@@ -1,0 +1,23 @@
+[file]
+name="test"
+language="bash"
+description="A test program for ai_coding"
+[project]
+requirements="""
+Write a program that test ai_coding or program with same intent.  The program calls the following three tests:
+1. hello world test
+python ai_coding.py helloworld.toml
+then execute the following command:
+python helloworld.py
+2. qsort test
+python ai_coding.py qsort.toml
+then execute the following command:
+python qsort.py 3 1 4 1 5 9 2 6
+3. askllm test
+python ai_coding.py askllm.toml
+then execute the following command:
+bash askllm.sh whats the largest bird in the world?
+
+The program have an optional argument, if the argument is not empty, use the argument to replace ai_coding.py, for example, I might call this test as follows:
+bash test.sh ai_coder.py
+"""

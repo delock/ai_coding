@@ -5,10 +5,13 @@ extension="sh"
 description="A CLI program that allows you to ask questions to deepseek"
 [project]
 requirements="""Write a program that takes a question from command line and send to deepseek with openai api and show answer on command line.  The question is the whole command line, so arg1, arg2, ... would all be part of the question.
-
+"""
+specs="""
+## spec 1
 api_token is taken from OPENAI_API_KEY environment variable, deepseek url is taken from OPENAI_API_URL env. model name is taken from OPENAI_API_MODEL env.  Note the url is just the basic path, you need to add suffix according to example below
 
-Use the following for reference:
+## spec 2
+When need to send a request to deepseek, use the following format:
 curl -L -X POST 'https://api.deepseek.com/chat/completions' \
 -H 'Content-Type: application/json' \
 -H 'Accept: application/json' \
