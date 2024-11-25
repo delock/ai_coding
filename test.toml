@@ -18,6 +18,21 @@ python ai_coding.py askllm.toml
 then execute the following command:
 bash askllm.sh whats the largest bird in the world?
 
+Only print out result, don't check result correctness
+
+Seperate three test by title like:
+------ Test 1: hello world test ------
+* code generation
+...
+* code execution
+...
+------ Test 2: qsort test ------
+* code generation
+...
+* code execution
+...
+
+
 The program have an optional argument, if the argument is not empty, use the argument to replace ai_coding.py, for example, I might call this test as follows:
 bash test.sh ai_coder.py
 """

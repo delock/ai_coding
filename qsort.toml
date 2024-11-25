@@ -3,5 +3,13 @@ name="qsort"
 language="python"
 description="Quick sort program"
 [project]
-requirements="""Please write quick sort code, try to avoid worst case by pick pivort from medium of first, last and middle element.
-Input numbers should read from command line, each different arg is a different number"""
+requirements="""
+Please write quick sort code, try to avoid worst case by pick pivort from medium of first, last and middle element.
+Input numbers should read from command line, each different arg is a different number
+
+Example:
+Input:
+python qsort.py 5 3 8 2 7 1
+Output:
+1 2 3 5 7 8
+"""

@@ -45,3 +45,7 @@ curl -L -X POST 'https://api.deepseek.com/chat/completions' \
   "top_logprobs": null
 }'
 """
+hints="""
+## hint 1
+I saw curl progress, try not show curl progress
+"""
