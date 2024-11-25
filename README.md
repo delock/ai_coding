@@ -37,16 +37,16 @@ Examples are under `examples/` directory.
 ## Requirement file format:
 Requirement file is in TOML format. It has the following sections:
 * file section: this sections contains general information about the program
-- name: name of the program
-- language: language of the program
-- description: description of the program
-- extension(optional): file extension of the program
+  - name: name of the program
+  - language: language of the program
+  - description: description of the program
+  - extension(optional): file extension of the program
 * project section: this section contains information about the project
-- requirements: Your requirements goes to this field, it is a single string not a list
-- specs: This fields contains specs that the program would use, for example, how to do certain action following a specification.  If you want to tell the program about a function prototype you want it to call, put it here
-- requirements: Your requirements goes to this field, it is a single string not a list
-- specs: This fields contains specs that the program would use, for example, how to do certain action following a specification.  If you want to tell the program about a function prototype you want it to call, etc. put it here.
-- hints: This fields contains things that LLM should know if it is smart enough.  If you want to tell the program about something it might get confused without, put it here.
+  - requirements: Your requirements goes to this field, it is a single string not a list
+  - specs: This fields contains specs that the program would use, for example, how to do certain action following a specification.  If you want to tell the program about a function prototype you want it to call, put it here
+  - requirements: Your requirements goes to this field, it is a single string not a list
+  - specs: This fields contains specs that the program would use, for example, how to do certain action following a specification.  If you want to tell the program about a function prototype you want it to call, etc. put it here.
+  - hints: This fields contains things that LLM should know if it is smart enough.  If you want to tell the program about something it might get confused without, put it here.
 
 ## Logs
 This project is evolving.  I look it as an experiment to see how far I could go without write new code except the initial bootstrap code, or at least no new hand written code beyond certain iterations.   This is the log of the project:
