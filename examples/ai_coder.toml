@@ -77,4 +77,5 @@ don't forget to import 'sys'!  You always forget to import sys!
 when reviewing code, don't use chat prefix completion, use normal chat completion instead
 ## hint 6
 please always pass necessary argument to function call before using them inside function body!
+## hint 7, when using chat prefix completion, note the language should be the same as the one in the toml file
 '''
