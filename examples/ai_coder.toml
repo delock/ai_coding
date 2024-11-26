@@ -22,18 +22,11 @@ After AI coder generates the source code, use reflection to review the generated
 
 After critic provide feedback, a new LLM call would take the requirement, the source code, and the critic feedback, then generate a new source code based on the feedback.  The newly generated source code is the final version.
 
-I'd like to see how you think, so please output the original code and critic feedback to a log file to help me know everything goes fine.
-
 When generating the source code, AI coder should follow the instruction in specs.
-
-When using openai api to generate token, check prompt token and decode token used and compute cost using the following formula:
-    cost of CNY = (0.1 * prompt_tokens + 0.2 * completion_tokens) /1000000
-Then print the cost of the code generation.
 
 An example of using ai_coder to generate helloworld.py is as follow:
 python ai_coder.py helloworld.toml
 Code saved to helloworld.py
-Cost of code generation: CNY 0.000394
 '''
 specs='''
 ## spec 1
@@ -83,7 +76,5 @@ don't forget to import 'sys'!  You always forget to import sys!
 ## hint 5
 when reviewing code, don't use chat prefix completion, use normal chat completion instead
 ## hint 6
-the cost of generating code is sum of generate, review, and regenerate cost. Collect the cost of each step and sum them up to get the total cost
-## hint 7
 please always pass necessary argument to function call before using them inside function body!
 '''
