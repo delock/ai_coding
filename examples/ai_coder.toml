@@ -61,4 +61,6 @@ hints='''
 ## hint 1
 For any code you want to generate "```", use the following instead:
 "`"+"``", the purpose is to avoid ``` in the code to stop code generation
+## hint 2
+When ask LLM to generate code, usually it will be helpful if add a few lines describe how good the LLM is in writing code.  Instead of ask it to generate code directly.   Use this method when you compose prompt for LLM.  Elaborate on how good the LLM is in writing code, i.e. how long the experience is in specific language, what grade it has, etc.  Use your imagination
 '''
