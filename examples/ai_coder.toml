@@ -16,13 +16,24 @@ The toml file has two sections:
     * specs(optional): specs for the program to use.   Specs are information that the program should reference to when generating the code
     * hints(optional): hints for the program, hints are used to guide the AI coder in generating the source code.
 
-AI coder takes the toml file from command line argument, then generate the source code for the program based on the toml file.  The format of toml file is described as above.
+AI coder takes the toml file from command line argument, then generate the source code for the program based on the toml file.  The format of toml file is described as above.  Please use both the requirements and specs to generate the source code.  If hints are provided, use them to guide the AI coder in generating the source code.
+
+After AI coder generates the source code, use reflection to review the generated code with a critic role.  The critic role act as supervisor of AI coder and try to find out bugs.  Critic should only focus on bugs in the code.
+
+After critic provide feedback, a new LLM call would take the requirement, the source code, and the critic feedback, then generate a new source code based on the feedback.  The newly generated source code is the final version.
+
+I'd like to see how you think, so please output the original code and critic feedback to a log file to help me know everything goes fine.
 
 When generating the source code, AI coder should follow the instruction in specs.
 
 When using openai api to generate token, check prompt token and decode token used and compute cost using the following formula:
     cost of CNY = (0.1 * prompt_tokens + 0.2 * completion_tokens) /1000000
 Then print the cost of the code generation.
+
+An example of using ai_coder to generate helloworld.py is as follow:
+python ai_coder.py helloworld.toml
+Code saved to helloworld.py
+Cost of code generation: CNY 0.000394
 '''
 specs='''
 ## spec 1
@@ -63,4 +74,16 @@ For any code you want to generate "```", use the following instead:
 "`"+"``", the purpose is to avoid ``` in the code to stop code generation
 ## hint 2
 When ask LLM to generate code, usually it will be helpful if add a few lines describe how good the LLM is in writing code.  Instead of ask it to generate code directly.   Use this method when you compose prompt for LLM.  Elaborate on how good the LLM is in writing code, i.e. how long the experience is in specific language, what grade it has, etc.  Use your imagination
+## hint 3
+Here is an example of critic prompt for LLM:
+Here’s code intended for task X: [previously generated code]
+Check the code carefully for correctness, style, and efficiency, and give constructive criticism for how to improve it.
+## hint 4
+don't forget to import 'sys'!  You always forget to import sys!
+## hint 5
+when reviewing code, don't use chat prefix completion, use normal chat completion instead
+## hint 6
+the cost of generating code is sum of generate, review, and regenerate cost. Collect the cost of each step and sum them up to get the total cost
+## hint 7
+please always pass necessary argument to function call before using them inside function body!
 '''
