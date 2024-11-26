@@ -48,6 +48,11 @@ Requirement file is in TOML format. It has the following sections:
   - specs: This fields contains specs that the program would use, for example, how to do certain action following a specification.  If you want to tell the program about a function prototype you want it to call, etc. put it here.
   - hints: This fields contains things that LLM should know if it is smart enough.  If you want to tell the program about something it might get confused without, put it here.
 
+## Feature plan
+* Reflection following Andrew Ng's artical https://www.deeplearning.ai/the-batch/agentic-design-patterns-part-2-reflection/?ref=dl-staging-website.ghost.io
+* Multiple component support, so that one requirement file can generate multiple files
+* Generate and launch the generated code in Docker container
+
 ## Logs
 This project is evolving.  I look it as an experiment to see how far I could go without write new code except the initial bootstrap code, or at least no new hand written code beyond certain iterations.   This is the log of the project:
 * 2024-11-22 morning: I created this project, and write the initial Python code.  It can be used to generate `helloworld` and soon I expand to `qsort` and `askllm`.
