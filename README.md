@@ -51,6 +51,7 @@ Requirement file is in TOML format. It has the following sections:
 ## Feature plan
 * Reflection following Andrew Ng's artical https://www.deeplearning.ai/the-batch/agentic-design-patterns-part-2-reflection/?ref=dl-staging-website.ghost.io
 * Multiple component support, so that one requirement file can generate multiple files
+* increase stability of code generated
 * Generate and launch the generated code in Docker container
 
 ## Logs
