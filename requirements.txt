@@ -1,3 +1,4 @@
 openai
 requests
 toml
+flake8
