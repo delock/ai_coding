@@ -4,7 +4,7 @@ language="bash"
 extension="sh"
 description="A CLI program that allows you to ask questions to deepseek"
 [project]
-requirements="""Write a program that takes a question from command line and send to deepseek with openai api and show answer on command line.  The question is the whole command line, so arg1, arg2, ... would all be part of the question.
+requirements="""Write a program that takes a question from command line and send to deepseek with openai api and show answer on command line.  The question is the whole command line, so arg1, arg2, ... would all be part of the question.  Beautify the output since the output is markdown format.
 """
 specs="""
 ## spec 1
@@ -48,4 +48,15 @@ curl -L -X POST 'https://api.deepseek.com/chat/completions' \
 hints="""
 ## hint 1
 I saw curl progress, try not show curl progress
+## hint 2
+use rich python package to beautify markdown language.
+'''
+from rich.console import Console
+from rich.markdown import Markdown
+
+console = Console()
+with open("README.md") as readme:
+    markdown = Markdown(readme.read())
+console.print(markdown)
+'''
 """
