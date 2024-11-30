@@ -1,22 +1,22 @@
 [file]
 name="askllm"
 language="python"
-description="A CLI program that allows you to ask questions to deepseek"
+description="A CLI program that allows you to ask questions to qwen"
 [project]
-requirements="""Write a program that takes a question from command line and send to deepseek with openai api and show answer on command line.  The question is the whole command line, so arg1, arg2, ... would all be part of the question.  Beautify the output since the output is markdown format.  Also I want to see answer as fast as possible, can you stream the output with beautified format so it looks way cooler?
+requirements="""Write a program that takes a question from command line and send to qwen with openai api and show answer on command line.  The question is the whole command line, so arg1, arg2, ... would all be part of the question.  Beautify the output since the output is markdown format.  Also I want to see answer as fast as possible, can you stream the output with beautified format so it looks way cooler?
 """
 specs="""
 ## spec 1
-api_token is taken from OPENAI_API_KEY environment variable, deepseek url is taken from OPENAI_API_URL env. model name is taken from OPENAI_API_MODEL env.  Note the url is just the basic path, you need to add suffix according to example below
+api_token is taken from OPENAI_API_KEY environment variable, qwen url is taken from OPENAI_API_URL env. model name is taken from OPENAI_API_MODEL env.  Note the url is just the basic path, you need to add suffix according to example below
 
 ## spec 2
-When need to send a request to deepseek, use the following format:
+When need to send a request to qwen, use the following format:
 from openai import OpenAI
 
-client = OpenAI(api_key="<DeepSeek API Key>", base_url="https://api.deepseek.com")
+client = OpenAI(api_key="<Qwen API Key>", base_url="https://api.qwen.com"/
 
 response = client.chat.completions.create(
-    model="deepseek-chat",
+    model="qwen-chat",
     messages=[
         {"role": "system", "content": "You are a helpful assistant"},
         {"role": "user", "content": "Hello"},
@@ -42,12 +42,12 @@ console.print(markdown)
 '''
 ## hint 3
 I saw ellipsis at the end of screen when output is too long, can you keep the screen scrolling in this situation?
-Vertical overflow¶
+Vertical overflow.
 By default, the live display will display ellipsis if the renderable is too large for the terminal. You can adjust this by setting the vertical_overflow argument on the Live constructor.
 
-“crop” Show renderable up to the terminal height. The rest is hidden.
+"crop" Show renderable up to the terminal height. The rest is hidden.
 
-“ellipsis” Similar to crop except last line of the terminal is replaced with “…”. This is the default behavior.
+"ellipsis" Similar to crop except last line of the terminal is replaced with "...". This is the default behavior.
 
-“visible” Will allow the whole renderable to be shown. Note that the display cannot be properly cleared in this mode.
+"visible" Will allow the whole renderable to be shown. Note that the display cannot be properly cleared in this mode.
 """

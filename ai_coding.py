@@ -5,8 +5,12 @@ from openai import OpenAI
 
 # Constants
 OPENAI_API_KEY = os.getenv("OPENAI_API_KEY")
-OPENAI_API_URL = os.getenv("OPENAI_API_URL", "https://api.deepseek.com/beta")
-OPENAI_API_MODEL = os.getenv("OPENAI_API_MODEL", "deepseek-chat")
+OPENAI_API_URL = os.getenv("OPENAI_API_URL")
+OPENAI_API_MODEL = os.getenv("OPENAI_API_MODEL")
+
+#OPENAI_API_KEY   = 'river'
+#OPENAI_API_URL   = 'http://192.168.3.146:11434/v1'
+#OPENAI_API_MODEL = 'qwen2.5-coder:32b-instruct-q3_K_M'
 
 # Common language to file extension mapping
 LANGUAGE_EXTENSION_MAP = {
@@ -17,6 +21,12 @@ LANGUAGE_EXTENSION_MAP = {
 
 def load_toml(file_path):
     """Load the TOML file and return the parsed data."""
+    #with open(file_path, mode='rb') as f:
+    #    content = f.read()
+    #if content.startswith(b'\xef\xbb\xbf'):     # 去掉 utf8 bom 头
+    #    content = content[3:]
+    #return toml.loads(content.decode('utf8'))
+
     with open(file_path, 'r') as file:
         return toml.load(file)
 
@@ -24,7 +34,7 @@ def generate_code(toml_data):
     """Generate the source code based on the TOML data."""
     client = OpenAI(
         api_key=OPENAI_API_KEY,
-        base_url=OPENAI_API_URL,
+        base_url=OPENAI_API_URL+'/v1',
     )
 
     # Extract data from TOML
@@ -51,6 +61,7 @@ def generate_code(toml_data):
     )
 
     messages = [
+        {"role": "system", "content": "你是一个特别有用的大模型助理！"},
         {"role": "user", "content": prompt},
         {"role": "assistant", "content": "`"+"``" + language + "\n", "prefix": True}
     ]
@@ -85,7 +96,7 @@ def regenerate_code_with_feedback(toml_data, original_code, feedback):
     """Regenerate the code based on the feedback from flake8."""
     client = OpenAI(
         api_key=OPENAI_API_KEY,
-        base_url=OPENAI_API_URL,
+        base_url=OPENAI_API_URL+'/v1',
     )
 
     # Extract data from TOML
@@ -108,6 +119,7 @@ def regenerate_code_with_feedback(toml_data, original_code, feedback):
     )
 
     messages = [
+        {"role": "system", "content": "你是一个特别有用的大模型助理！"},
         {"role": "user", "content": prompt},
         {"role": "assistant", "content": "`"+"``" + language + "\n", "prefix": True}
     ]

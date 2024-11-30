@@ -30,13 +30,13 @@ Code saved to helloworld.py
 '''
 specs='''
 ## spec 1
-In order to generate code, AI coder should utilize DeepSeek 'chat prefix completion' feature, the description of this feature is as follow:
+In order to generate code, AI coder should utilize Qwen 'chat prefix completion' feature, the description of this feature is as follow:
 
     The chat prefix completion follows the Chat Completion API, where users provide an assistant's prefix message for the model to complete the rest of the message.
 
     Notice
     When using chat prefix completion, users must ensure that the role of the last message in the messages list is assistant and set the prefix parameter of the last message to True.
-    The user needs to set base_url="https://api.deepseek.com/beta" to enable the Beta feature.
+    The user needs to set base_url="https://api.qwen.com/beta" to enable the Beta feature.
     Sample Code
     Below is a complete Python code example for chat prefix completion. In this example, we set the prefix message of the assistant to "`"+"``python\n" to force the model to output Python code, and set the stop parameter to ['`'+'``'] to prevent additional explanations from the model.
 
@@ -44,7 +44,7 @@ In order to generate code, AI coder should utilize DeepSeek 'chat prefix complet
 
     client = OpenAI(
         api_key="<your api key>",
-        base_url="https://api.deepseek.com/beta",
+        base_url="https://api.qwen.com/beta",
     )
 
     messages = [
@@ -52,14 +52,14 @@ In order to generate code, AI coder should utilize DeepSeek 'chat prefix complet
         {"role": "assistant", "content": "`"+"``python\n", "prefix": True}
     ]
     response = client.chat.completions.create(
-        model="deepseek-chat",
+        model="qwen-chat",
         messages=messages,
         stop=["`"+"``\n"],
     )
     print(response.choices[0].message.content)
 
 ## spec 2
-api_token is taken from OPENAI_API_KEY environment variable, deepseek base_url is taken from OPENAI_API_URL   env. model name is taken from OPENAI_API_MODEL env.
+api_token is taken from OPENAI_API_KEY environment variable, qwen base_url is taken from OPENAI_API_URL   env. model name is taken from OPENAI_API_MODEL env.
 '''
 hints='''
 ## hint 1
