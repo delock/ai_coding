@@ -34,6 +34,7 @@ Examples are under `examples/` directory.
 * `helloworld.toml`: a simple hello world program in Python
 * `qsort.toml`: a quick sort program that sorts your inputs from command line in Python
 * `askllm.toml`: a program that asks a question and gets an answer from DeepSpeed in bash script
+* `askllmpy.toml`: the same program in python and it streams the output and beautify it with `rich` package
 * `ai_coder.toml`: a program that takes requirement file and generates code in Python, so this project can generate itself
 
 ## Requirement file format:
