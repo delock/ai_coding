@@ -18,10 +18,6 @@ The toml file has two sections:
 
 AI coder takes the toml file from command line argument, then generate the source code for the program based on the toml file.  The format of toml file is described as above.  Please use both the requirements and specs to generate the source code.  If hints are provided, use them to guide the AI coder in generating the source code.
 
-After AI coder generates the source code, use reflection to review the generated code with flake8.  Get feedback message from flake8
-
-After flake8 provide feedback, a new LLM call would take the requirement/spec/hints, the source code, and the feedback, then generate a new source code based on the feedback.  The newly generated source code is the final version.
-
 When generating the source code, AI coder should follow the instruction in specs.
 
 An example of using ai_coder to generate helloworld.py is as follow:
@@ -68,12 +64,8 @@ For any code you want to generate "```", use the following instead:
 ## hint 2
 When ask LLM to generate code, usually it will be helpful if add a few lines describe how good the LLM is in writing code.  Instead of ask it to generate code directly.   Use this method when you compose prompt for LLM.  Elaborate on how good the LLM is in writing code, i.e. how long the experience is in specific language, what grade it has, etc.  Use your imagination
 ## hint 3
-Here is an example of critic prompt for LLM:
-Here’s code intended for task X: [previously generated code]
-Check the code carefully for correctness, style, and efficiency, and give constructive criticism for how to improve it.
-## hint 4
 don't forget to import 'sys'!  You always forget to import sys!
-## hint 5
+## hint 4
 please always pass necessary argument to function call before using them inside function body!
 ## hint 7, when using chat prefix completion, note the language should be the same as the one in the toml file
 '''
