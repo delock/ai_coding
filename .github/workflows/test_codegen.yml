@@ -25,5 +25,7 @@ jobs:
           OPENAI_API_URL: https://api.deepseek.com/beta
           OPENAI_API_MODEL: deepseek-chat
         run: |
+          echo "Generating test script"
           python ai_coding.py tests/test.toml
           bash test.sh ai_coding.py
+          echo "::add-to-report::AI Coding tests passed"
