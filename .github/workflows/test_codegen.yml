@@ -30,31 +30,31 @@ jobs:
           bash test.sh ai_coding.py 2>&1 | tee result.txt
 
       - name: Upload artifact test.sh
-        uses: actions/upload-artifact@v2
+        uses: actions/upload-artifact@v4
         with:
           name: test.sh
           path: test.sh
 
       - name: Upload artifact helloworld.py
-        uses: actions/upload-artifact@v2
+        uses: actions/upload-artifact@v4
         with:
           name: helloworld.py
           path: helloworld.py
 
       - name: Upload artifact qsort.py
-        uses: actions/upload-artifact@v2
+        uses: actions/upload-artifact@v4
         with:
           name: qsort.py
           path: qsort.py
 
       - name: Upload artifact askllm.py
-        uses: actions/upload-artifact@v2
+        uses: actions/upload-artifact@v4
         with:
           name: askllm.py
           path: askllm.py
 
       - name: Upload result.txt
-        uses: actions/upload-artifact@v2
+        uses: actions/upload-artifact@v4
         with:
           name: result.txt
           path: result.txt
