@@ -27,33 +27,32 @@ jobs:
         run: |
           echo "Generating ai_coder script"
           python ai_coding.py examples/ai_coder.toml
+          echo "==================="
+          echo "Showing ai_coder script"
+          echo "-------------------"
+          cat ai_coder.py
+          echo "==================="
           echo "Generating test script"
           python ai_coder.py tests/test.toml
+          echo "==================="
           echo "Showing test script"
+          echo "-------------------"
           cat test.sh
+          echo "==================="
           echo "Running test"
           bash test.sh ai_coder.py 2>&1 |tee $GITHUB_STEP_SUMMARY
-
-      - name: Upload artifact test.sh
-        uses: actions/upload-artifact@v4
-        with:
-          name: test.sh
-          path: test.sh
-
-      - name: Upload artifact helloworld.py
-        uses: actions/upload-artifact@v4
-        with:
-          name: helloworld.py
-          path: helloworld.py
-
-      - name: Upload artifact qsort.py
-        uses: actions/upload-artifact@v4
-        with:
-          name: qsort.py
-          path: qsort.py
-
-      - name: Upload artifact askllm.py
-        uses: actions/upload-artifact@v4
-        with:
-          name: askllm.py
-          path: askllm.py
+          echo "==================="
+          echo "Showing helloworld script"
+          echo "-------------------"
+          cat helloworld.py
+          echo "==================="
+          echo "==================="
+          echo "Showing qsort script"
+          echo "-------------------"
+          cat qsort.py
+          echo "==================="
+          echo "==================="
+          echo "Showing askllm script"
+          echo "-------------------"
+          cat askllm.sh
+          echo "==================="
