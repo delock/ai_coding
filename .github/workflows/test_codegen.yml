@@ -1,4 +1,4 @@
-name: Code gen tests
+name: Codegen tests
 on:
   workflow_dispatch:
 
@@ -27,7 +27,7 @@ jobs:
         run: |
           echo "Generating test script"
           python ai_coding.py tests/test.toml
-          bash test.sh ai_coding.py 2>&1 | tee result.txt
+          bash test.sh ai_coding.py 2>&1 |tee $GITHUB_STEP_SUMMARY
 
       - name: Upload artifact test.sh
         uses: actions/upload-artifact@v4
@@ -52,9 +52,3 @@ jobs:
         with:
           name: askllm.py
           path: askllm.py
-
-      - name: Upload result.txt
-        uses: actions/upload-artifact@v4
-        with:
-          name: result.txt
-          path: result.txt
