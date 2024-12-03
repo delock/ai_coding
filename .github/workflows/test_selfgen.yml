@@ -1,0 +1,59 @@
+name: Selfgen tests
+on:
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: setup python
+        uses: actions/setup-python@v2
+        with:
+          python-version: '3.11'
+
+      - name: install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt
+
+      - name: Use OpenAI API Key
+        env:
+          OPENAI_API_KEY: ${{ secrets.DEEPSEEK_API_KEY }}
+          OPENAI_API_URL: https://api.deepseek.com/beta
+          OPENAI_API_MODEL: deepseek-chat
+        run: |
+          echo "Generating ai_coder script"
+          python ai_coding.py examples/ai_coder.toml
+          echo "Generating test script"
+          python ai_coder.py tests/test.toml
+          echo "Showing test script"
+          cat test.sh
+          echo "Running test"
+          bash test.sh ai_coder.py 2>&1 |tee $GITHUB_STEP_SUMMARY
+
+      - name: Upload artifact test.sh
+        uses: actions/upload-artifact@v4
+        with:
+          name: test.sh
+          path: test.sh
+
+      - name: Upload artifact helloworld.py
+        uses: actions/upload-artifact@v4
+        with:
+          name: helloworld.py
+          path: helloworld.py
+
+      - name: Upload artifact qsort.py
+        uses: actions/upload-artifact@v4
+        with:
+          name: qsort.py
+          path: qsort.py
+
+      - name: Upload artifact askllm.py
+        uses: actions/upload-artifact@v4
+        with:
+          name: askllm.py
+          path: askllm.py
