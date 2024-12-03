@@ -1,0 +1,25 @@
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: setup python
+        uses: actions/setup-python@v2
+        with:
+          python-version: '3.11'
+
+      - name: install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt
+
+      - name: Use OpenAI API Key
+        env:
+          OPENAI_API_KEY: ${{ secrets.DEEPSEEK_API_KEY }}
+          OPENAI_API_URL: https://api.deepseek.com/beta
+          OPENAI_API_MODEL: deepseek-chat
+        run: |
+          python ai_coding.py tests/test.toml
+          bash test.sh ai_coding.py
