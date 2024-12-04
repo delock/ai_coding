@@ -67,5 +67,5 @@ When ask LLM to generate code, usually it will be helpful if add a few lines des
 don't forget to import 'sys'!  You always forget to import sys!
 ## hint 4
 please always pass necessary argument to function call before using them inside function body!
-## hint 7, when using chat prefix completion, note the language should be the same as the one in the toml file
+## hint 5, when using chat prefix completion, note the language should be the same as the language in the toml file, I saw you always use python language when you call api, please change it to the langugae in the toml file.
 '''
