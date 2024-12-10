@@ -1,0 +1,12 @@
+[file]
+name="setup"
+language="python"
+description="setup script for ai_coding"
+[project]
+requirements="""
+Please write setup script for ai_coding.py, ai_coding.py is under ai_coding/ directory.
+Author: Guokai Ma
+email: guokai.ma@gmail.com
+my github id is delock
+description: ai_coding is a python package for AI coding.
+"""
