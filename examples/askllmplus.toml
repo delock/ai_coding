@@ -1,0 +1,95 @@
+[file]
+name="askllm"
+language="python"
+description="A CLI program that allows you to ask questions to deepseek"
+[project]
+requirements="""Write a program that takes a question from command line and send to deepseek with openai api and show answer on command line.  The question is the whole command line, so arg1, arg2, ... would all be part of the question.
+
+When get the question, first use deepseek api to decide whether a web search is needed and what is the keywords for search.
+
+If web search is not needed, use deepseek to get answer directly.
+
+If web search is needed, use a search engine to get search result (search up to 5 entries), then add search result as reference field of question in deepseek api.
+
+Beautify the final output since the output is markdown format.  Also I want to see answer as fast as possible, can you stream the output with beautified format so it looks way cooler?
+When I press ctrl-C, don't print stack trace instead stop generate output and print "Goodbye!" and exit.
+"""
+specs="""
+## spec 1
+api_token is taken from OPENAI_API_KEY environment variable, deepseek url is taken from OPENAI_API_URL env. model name is taken from OPENAI_API_MODEL env.  Note the url is just the basic path, you need to add suffix according to example below
+
+## spec 2
+When need to send a request to deepseek, use the following format:
+from openai import OpenAI
+
+client = OpenAI(api_key="<DeepSeek API Key>", base_url="https://api.deepseek.com")
+
+response = client.chat.completions.create(
+    model="deepseek-chat",
+    messages=[
+        {"role": "system", "content": "You are a helpful assistant"},
+        {"role": "user", "content": "Hello"},
+    ],
+    stream=False
+)
+
+print(response.choices[0].message.content)
+
+## spec 3
+when using google search, use the following as reference
+from googlesearch import search
+search("Google", num_results=100)
+also note the following advanced form
+from googlesearch import search
+search("Google", advanced=True)
+# Returns a list of SearchResult
+# Properties:
+# - title
+# - url
+# - description
+"""
+hints="""
+## hint 1
+I saw curl progress, try not show curl progress
+## hint 2
+use rich python package to beautify markdown language.
+'''
+from rich.console import Console
+from rich.markdown import Markdown
+
+console = Console()
+with open("README.md") as readme:
+    markdown = Markdown(readme.read())
+console.print(markdown)
+'''
+## hint 3
+I saw ellipsis at the end of screen when output is too long, can you keep the screen scrolling in this situation?
+Vertical overflow¶
+By default, the live display will display ellipsis if the renderable is too large for the terminal. You can adjust this by setting the vertical_overflow argument on the Live constructor.
+
+“crop” Show renderable up to the terminal height. The rest is hidden.
+
+“ellipsis” Similar to crop except last line of the terminal is replaced with “…”. This is the default behavior.
+
+“visible” Will allow the whole renderable to be shown. Note that the display cannot be properly cleared in this mode.
+
+## hint 4
+When ask deepseek api to decide whether web search is needed, enforce deepseek to output json format and process output as json format.   In case deepseek return something cannot be parsed, look it as deepseek does not recommend web search.
+Remember to filter out the real code part from content before parsing.  When do the final query to deepseek, do not enforce json output
+
+## hint 5
+You need to convert the string to url compatible format for search engine.
+
+## hint 6
+use googlesearch-python to do web search, use advanced form and use description directly.
+
+## hint 7
+To enable JSON Output, users should:
+
+Set the response_format parameter to {'type': 'json_object'}.
+Include the word "json" in the system or user prompt, and provide an example of the desired JSON format to guide the model in outputting valid JSON.
+Set the max_tokens parameter reasonably to prevent the JSON string from being truncated midway.
+
+## hint 8
+remember to specify json fields when promting deepseek to output json format and use them accordingly
+"""
