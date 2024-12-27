@@ -72,6 +72,7 @@ This project is evolving.  I look it as an experiment to see how far I could go 
 * 2024-11-28: For relative simple requirements, this system is very reliable, see this updated `askllm` that beautify the result with `rich` package.  And the new requirement file here (https://github.com/delock/ai_coding/blob/main/examples/askllm.toml).  I'm glad I only need to consider higher level direction and structure and let AI figure out the detail.
   ![image](https://github.com/user-attachments/assets/e241ce3a-6069-4110-a56b-b6df3255d19e)
 * 2024-12-3: Remove use flake8 as critic for python code.  It does not seem fix the code even when flake8 generate critic, may have a different try later.
+* 2924-12-10: I added a setup.py so it can be installed and run as a command line tool.  I'm not an expert in writing setup.py so I generate it with ai_coding.  Move all .toml related to this project to `self/` directory.  I have been using `ai_coding` to generate code I need which is simple but need me to lookup a lot on internet, `ai_coding` is perfect for this kind of task.
 
 
 ## Security consideration

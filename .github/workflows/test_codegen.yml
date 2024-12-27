@@ -19,12 +19,13 @@ jobs:
           python -m pip install --upgrade pip
           pip install -r requirements.txt
 
-      - name: Use OpenAI API Key
+      - name: run test
         env:
           OPENAI_API_KEY: ${{ secrets.DEEPSEEK_API_KEY }}
           OPENAI_API_URL: https://api.deepseek.com/beta
           OPENAI_API_MODEL: deepseek-chat
         run: |
+          tree
           echo "Generating test script"
           python ai_coding.py tests/test.toml
           bash test.sh ai_coding.py 2>&1 |tee $GITHUB_STEP_SUMMARY
