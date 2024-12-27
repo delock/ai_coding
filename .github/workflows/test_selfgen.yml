@@ -19,14 +19,18 @@ jobs:
           python -m pip install --upgrade pip
           pip install -r requirements.txt
 
-      - name: Use OpenAI API Key
+      - name: install ai_coding
+        run: |
+          python setup.py develop
+
+      - name: run test
         env:
           OPENAI_API_KEY: ${{ secrets.DEEPSEEK_API_KEY }}
           OPENAI_API_URL: https://api.deepseek.com/beta
           OPENAI_API_MODEL: deepseek-chat
         run: |
           echo "Generating ai_coder script"
-          python ai_coding.py examples/ai_coder.toml
+          ai_coding examples/ai_coder.toml
           echo "==================="
           echo "Showing ai_coder script"
           echo "-------------------"
