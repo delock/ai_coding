@@ -19,6 +19,10 @@ jobs:
           python -m pip install --upgrade pip
           pip install -r requirements.txt
 
+      - name: install ai_coding
+        run: |
+          python setup.py install
+
       - name: run test
         env:
           OPENAI_API_KEY: ${{ secrets.DEEPSEEK_API_KEY }}
@@ -26,7 +30,7 @@ jobs:
           OPENAI_API_MODEL: deepseek-chat
         run: |
           echo "Generating test script"
-          python aicoding/ai_coding.py tests/test.toml
+          aicoding tests/test.toml
           echo "==================="
           echo "Showing test script"
           echo "-------------------"

@@ -6,15 +6,15 @@ description="A test program for ai_coding"
 requirements="""
 Write a program that test ai_coding or program with same intent.  The program calls the following three tests:
 1. hello world test
-python ai_coding.py examples/helloworld.toml
+ai_coding examples/helloworld.toml
 then execute the following command:
 python helloworld.py
 2. qsort test
-python ai_coding.py examples/qsort.toml
+ai_coding examples/qsort.toml
 then execute the following command:
 python qsort.py 3 1 4 1 5 9 2 6
 3. askllm test
-python ai_coding.py examples/askllm.toml
+ai_coding examples/askllm.toml
 then execute the following command:
 bash askllm.sh whats the largest bird in the world?
 
@@ -33,6 +33,8 @@ Seperate three test by title like:
 ...
 
 
-The program have an optional argument, if the argument is not empty, use the argument to replace ai_coding.py, for example, I might call this test as follows:
+The program have an optional argument, if the argument is not empty, use the argument to replace ai_coding, and use python to launch the test command, for example, I might call this test as follows:
 bash test.sh ai_coder.py
+
+then `python ai_coder.py` will replace `ai_coding` in the test command
 """
