@@ -30,7 +30,7 @@ jobs:
           OPENAI_API_MODEL: deepseek-chat
         run: |
           echo "Generating test script"
-          aicoding tests/test.toml
+          ai_coding tests/test.toml
           echo "==================="
           echo "Showing test script"
           echo "-------------------"
