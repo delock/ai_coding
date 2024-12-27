@@ -25,18 +25,15 @@ jobs:
           OPENAI_API_URL: https://api.deepseek.com/beta
           OPENAI_API_MODEL: deepseek-chat
         run: |
-          pwd
-          tree
           echo "Generating test script"
-          python ai_coding.py tests/test.toml
-          bash test.sh ai_coding.py 2>&1 |tee $GITHUB_STEP_SUMMARY
+          python aicoding/ai_coding.py tests/test.toml
           echo "==================="
           echo "Showing test script"
           echo "-------------------"
           cat test.sh
           echo "==================="
           echo "Running test"
-          bash test.sh ai_coder.py 2>&1 |tee $GITHUB_STEP_SUMMARY
+          bash test.sh aicoding/ai_coding.py 2>&1 |tee $GITHUB_STEP_SUMMARY
           echo "==================="
           echo "Showing helloworld script"
           echo "-------------------"
