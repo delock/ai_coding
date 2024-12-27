@@ -21,7 +21,7 @@ jobs:
 
       - name: install ai_coding
         run: |
-          python setup.py install
+          python setup.py develop
 
       - name: run test
         env:
