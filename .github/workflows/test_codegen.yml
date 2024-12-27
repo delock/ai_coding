@@ -25,6 +25,7 @@ jobs:
           OPENAI_API_URL: https://api.deepseek.com/beta
           OPENAI_API_MODEL: deepseek-chat
         run: |
+          pwd
           tree
           echo "Generating test script"
           python ai_coding.py tests/test.toml
