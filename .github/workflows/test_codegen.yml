@@ -37,7 +37,7 @@ jobs:
           cat test.sh
           echo "==================="
           echo "Running test"
-          bash test.sh aicoding/ai_coding.py 2>&1 |tee $GITHUB_STEP_SUMMARY
+          bash test.sh 2>&1 |tee $GITHUB_STEP_SUMMARY
           echo "==================="
           echo "Showing helloworld script"
           echo "-------------------"
