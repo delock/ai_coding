@@ -27,7 +27,7 @@ jobs:
         env:
           OPENAI_API_KEY: ${{ secrets.DEEPSEEK_API_KEY }}
           OPENAI_API_URL: https://api.deepseek.com/beta
-          OPENAI_API_MODEL: deepseek-chat
+          OPENAI_API_MODEL: deepseek-reasoner
         run: |
           echo "Generating test script"
           ai_coding tests/test.toml
