@@ -20,12 +20,18 @@ AI coder takes the toml file from command line argument, then generate the sourc
 
 When generating the source code, AI coder should follow the instruction in specs.
 
+The source code would first be generated with reasoning API.  The whole output will be then processed by a normal model, the instruction would be output the final source code, then use chat prefix completion feature.  Do not pass requirement in this round.
+
+Print out both output from reasoning API and chat prefix completion API for debugging purpose.  Seperate them by a line of "===".
+
 An example of using ai_coder to generate helloworld.py is as follow:
 python ai_coder.py helloworld.toml
 Code saved to helloworld.py
 '''
 specs='''
 ## spec 1
+api_token is taken from OPENAI_API_KEY environment variable, deepseek base_url is taken from OPENAI_API_URL   env. model name is taken from OPENAI_API_MODEL env, reasoner name is take from OPENAI_API_REASONER.
+## spec 2
 In order to generate code, AI coder should utilize DeepSeek 'chat prefix completion' feature, the description of this feature is as follow:
 
     The chat prefix completion follows the Chat Completion API, where users provide an assistant's prefix message for the model to complete the rest of the message.
@@ -53,9 +59,20 @@ In order to generate code, AI coder should utilize DeepSeek 'chat prefix complet
         stop=["`"+"``\n"],
     )
     print(response.choices[0].message.content)
+## spec 3
+An example of using OpenAI reasoning API to generate a chat completion is as follow:
+from openai import OpenAI
+client = OpenAI(api_key="<DeepSeek API Key>", base_url="https://api.deepseek.com")
 
-## spec 2
-api_token is taken from OPENAI_API_KEY environment variable, deepseek base_url is taken from OPENAI_API_URL   env. model name is taken from OPENAI_API_MODEL env.
+# Round 1
+messages = [{"role": "user", "content": "9.11 and 9.8, which is greater?"}]
+response = client.chat.completions.create(
+    model="deepseek-reasoner",
+    messages=messages
+)
+
+reasoning_content = response.choices[0].message.reasoning_content
+content = response.choices[0].message.content
 '''
 hints='''
 ## hint 1
